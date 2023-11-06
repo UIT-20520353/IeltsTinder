@@ -2,9 +2,9 @@ package uit.se122.ieltstinder.service.dto;
 
 public record UserDto(
         Long id,
-        String name,
+        String firstName,
+        String lastName,
         String email,
-        String password,
         String address,
         String gender,
         Integer age,

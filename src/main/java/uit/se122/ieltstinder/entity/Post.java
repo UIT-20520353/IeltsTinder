@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "posts")
+@Table(name = "t_posts")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,13 +18,13 @@ public class Post {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userid", nullable = false, referencedColumnName = "id")
+    @JoinColumn(name = "fk_user_id", nullable = false, referencedColumnName = "id")
     private User user;
 
     @Column(name = "content")
     private String content;
 
-    @Column(name = "videourl")
+    @Column(name = "video_url")
     private String videoUrl;
 
 }

@@ -1,4 +1,4 @@
-package uit.se122.ieltstinder.mapper;
+package uit.se122.ieltstinder.service.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

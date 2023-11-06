@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping(value = "/api/users")
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "Users")
+@Tag(name = "User Resources")
 public class UserController {
 
     private final UserService userService;
@@ -30,8 +30,13 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createUser(@RequestBody User user) {
-        userService.createUser(user);
+    public ResponseEntity<UserDto> createUser(@RequestBody User user) {
+        return ResponseEntity.ok().body(userService.createUser(user));
+    }
+
+    @DeleteMapping(value = "/{userId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
+        userService.deleteUser(userId);
         return ResponseEntity.noContent().build();
     }
 

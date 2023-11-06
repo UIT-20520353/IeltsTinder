@@ -4,6 +4,6 @@ public class AppConstant {
 
     public  AppConstant() {}
 
-    public static final String BAD_REQUEST_TITLE = "Bad Request";
+    public static final String EMPTY_STR = "";
 
 }

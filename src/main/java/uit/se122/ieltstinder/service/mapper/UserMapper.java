@@ -1,4 +1,4 @@
-package uit.se122.ieltstinder.mapper;
+package uit.se122.ieltstinder.service.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,9 +12,9 @@ public class UserMapper {
     public UserDto toUserDto(User user) {
         return new UserDto(
           user.getId(),
-          user.getName(),
+          user.getFirstName(),
+          user.getLastName(),
           user.getEmail(),
-          user.getPassword(),
           user.getAddress(),
           user.getGender() == 1 ? "Male" : "Female",
           user.getAge(),

@@ -2,7 +2,7 @@ package uit.se122.ieltstinder.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import uit.se122.ieltstinder.mapper.PostMapper;
+import uit.se122.ieltstinder.service.mapper.PostMapper;
 import uit.se122.ieltstinder.repository.PostRepository;
 import uit.se122.ieltstinder.service.PostService;
 import uit.se122.ieltstinder.service.dto.PostDto;

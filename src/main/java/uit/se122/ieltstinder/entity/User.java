@@ -5,7 +5,7 @@ import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 @Entity
-@Table(name = "users")
+@Table(name = "t_users")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,8 +18,11 @@ public class User {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
 
     @Column(name = "email")
     private String email;
