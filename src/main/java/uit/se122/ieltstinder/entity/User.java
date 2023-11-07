@@ -1,8 +1,11 @@
 package uit.se122.ieltstinder.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 @Entity
 @Table(name = "t_users")
@@ -50,5 +53,16 @@ public class User {
 
     @Column(name = "avatar", nullable = true)
     private String avatar;
+
+    @JsonIgnore
+    @ToString.Exclude
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<UserSession> sessions;
+
+    public void setNewSession(UserSession session) {
+        session.setUser(this);
+        this.sessions.clear();
+        this.sessions.add(session);
+    }
 
 }

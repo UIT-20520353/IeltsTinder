@@ -42,8 +42,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         if (StringUtils.isNotBlank(accessToken)) {
             ExtractJwtResult extractJwtResult = jwtProvider.extractClaims(accessToken);
             if (extractJwtResult.isValid() && sessionService.checkUserSession(extractJwtResult.getTokenId())) {
-                Set<String> author = extractJwtResult
-                        .getAuthorities();
+                Set<String> author = extractJwtResult.getAuthorities();
                 Authentication authentication = new UsernamePasswordAuthenticationToken(
                         extractJwtResult.getUserId(),
                         extractJwtResult.getTokenId(),

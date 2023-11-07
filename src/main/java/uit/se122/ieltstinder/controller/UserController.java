@@ -1,9 +1,11 @@
 package uit.se122.ieltstinder.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import uit.se122.ieltstinder.entity.User;
 import uit.se122.ieltstinder.service.UserService;
@@ -27,11 +29,6 @@ public class UserController {
     @GetMapping(value = "/{userId}")
     public ResponseEntity<UserDto> getUser(@PathVariable Long userId) {
         return ResponseEntity.ok().body(userService.findUserById(userId));
-    }
-
-    @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody User user) {
-        return ResponseEntity.ok().body(userService.createUser(user));
     }
 
     @DeleteMapping(value = "/{userId}")

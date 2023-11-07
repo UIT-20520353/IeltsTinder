@@ -14,7 +14,6 @@ public class UserMapper {
           user.getId(),
           user.getFirstName(),
           user.getLastName(),
-          user.getEmail(),
           user.getAddress(),
           user.getGender() == 1 ? "Male" : "Female",
           user.getAge(),

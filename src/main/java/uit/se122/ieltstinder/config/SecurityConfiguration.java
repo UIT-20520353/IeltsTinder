@@ -1,9 +1,6 @@
 package uit.se122.ieltstinder.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.*;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -64,8 +61,9 @@ public class SecurityConfiguration {
                         // For health check
                         .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
 
-                        .requestMatchers(new AntPathRequestMatcher("/api/posts")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/api/users/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/login")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/users")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/register")).permitAll()
 
                         .anyRequest().authenticated()
                 )

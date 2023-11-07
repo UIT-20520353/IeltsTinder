@@ -1,8 +1,6 @@
 package uit.se122.ieltstinder.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,7 +21,7 @@ import static uit.se122.ieltstinder.constant.MessageConstant.USER_NOT_EXIST;
 public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+//    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public List<UserDto> getAllUsers() {
@@ -38,7 +36,7 @@ public class UserServiceImpl implements UserService {
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
-                .password(passwordEncoder.encode(user.getPassword()))
+                .password(user.getPassword())
                 .address(user.getAddress())
                 .age(user.getAge())
                 .gender(user.getGender())

@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping(value = "/api/posts")
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "Posts")
+@Tag(name = "Post Resources")
 public class PostController {
 
     private final PostService postService;
