@@ -1,12 +1,12 @@
 package uit.se122.ieltstinder.service;
-import uit.se122.ieltstinder.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import uit.se122.ieltstinder.service.criteria.UserCriteria;
 import uit.se122.ieltstinder.service.dto.UserDto;
-
-import java.util.List;
+import uit.se122.ieltstinder.service.dto.response.UserProfileResponseDto;
 
 public interface UserService {
-    List<UserDto> getAllUsers();
-    UserDto createUser(User user);
+    Page<UserDto> getAllUsers(UserCriteria criteria, Pageable pageable);
     UserDto findUserById(Long id);
-    void deleteUser(Long id);
+    UserProfileResponseDto getUserProfile(Long userId);
 }

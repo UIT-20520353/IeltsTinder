@@ -9,6 +9,8 @@ public class MessageConstant {
     public static final String USER_NOT_EXIST = "error.user.not-exist";
     public static final String USER_ALREADY_EXIST_ERR = "error.validate.user.already-exist";
 
+    public static final String REQUEST_NOT_EXIST = "error.request.not-exist";
+
     public static final String FIRST_NAME_REQUIRED_ERROR = "error.validate.first-name.required";
     public static final String FIRST_NAME_MAX_LENGTH_ERROR = "error.validate.first-name.length.max";
     public static final String LAST_NAME_REQUIRED_ERROR = "error.validate.last-name.required";
@@ -33,6 +35,9 @@ public class MessageConstant {
     public static final String AGE_MAX_VALUE_ERROR = "error.validate.age.value.max";
     public static final String AGE_MIN_VALUE_ERROR = "error.validate.age.value.min";
     public static final String AGE_REQUIRED_ERROR = "error.validate.age.required";
+
+    public static final String USER_ID_REQUIRED_ERROR = "error.validate.user-id.required";
+    public static final String TARGET_USER_ID_REQUIRED_ERROR = "error.validate.target-user-id.required";
 
 
 }
