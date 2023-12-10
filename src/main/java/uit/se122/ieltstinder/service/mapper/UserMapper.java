@@ -21,7 +21,9 @@ public class UserMapper {
           user.getOverall(),
           user.getTarget(),
           user.getDescription(),
-          user.getAvatar()
+          user.getAvatar(),
+          user.getStatus(),
+          user.getRole()
         );
     }
 

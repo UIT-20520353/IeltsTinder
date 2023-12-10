@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import uit.se122.ieltstinder.entity.enumeration.Role;
+import uit.se122.ieltstinder.entity.enumeration.UserStatus;
 
 import java.util.List;
 
@@ -53,6 +55,14 @@ public class User {
 
     @Column(name = "avatar", nullable = true)
     private String avatar;
+
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    Role role;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    UserStatus status;
 
     @JsonIgnore
     @ToString.Exclude

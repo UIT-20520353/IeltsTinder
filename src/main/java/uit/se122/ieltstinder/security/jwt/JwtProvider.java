@@ -40,7 +40,7 @@ public class JwtProvider {
         String accessTokenId = SecurityUtils.generateRandomCode();
         Date issueAt = new Date(System.currentTimeMillis());
 
-        Set<String> authorities = Set.of("USER");
+        Set<String> authorities = Set.of(user.getRole().toString());
 
         String refreshToken = Jwts.builder()
                 .setId(refreshTokenId)

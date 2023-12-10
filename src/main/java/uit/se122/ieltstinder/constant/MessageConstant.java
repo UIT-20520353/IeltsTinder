@@ -39,5 +39,7 @@ public class MessageConstant {
     public static final String USER_ID_REQUIRED_ERROR = "error.validate.user-id.required";
     public static final String TARGET_USER_ID_REQUIRED_ERROR = "error.validate.target-user-id.required";
 
+    public static final String USER_WAS_BLOCKED_ERR = "error.validate.user.blocked";
+
 
 }

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uit.se122.ieltstinder.entity.User;
 import uit.se122.ieltstinder.entity.UserSession;
+import uit.se122.ieltstinder.entity.enumeration.Role;
+import uit.se122.ieltstinder.entity.enumeration.UserStatus;
 import uit.se122.ieltstinder.exception.AuthenticationException;
 import uit.se122.ieltstinder.exception.BadRequestException;
 import uit.se122.ieltstinder.repository.UserRepository;
@@ -20,8 +22,7 @@ import uit.se122.ieltstinder.service.dto.response.AuthLoginResponseDto;
 
 import java.util.Objects;
 
-import static uit.se122.ieltstinder.constant.MessageConstant.INVALID_CREDENTIAL_ERR;
-import static uit.se122.ieltstinder.constant.MessageConstant.USER_ALREADY_EXIST_ERR;
+import static uit.se122.ieltstinder.constant.MessageConstant.*;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +38,10 @@ public class AuthServiceImpl implements AuthService {
         User user = userRepository
                 .findByEmail(request.getEmail())
                 .orElseThrow(() -> new AuthenticationException(INVALID_CREDENTIAL_ERR));
+
+        if (UserStatus.BLOCKED.equals(user.getStatus())) {
+            throw new AuthenticationException(USER_WAS_BLOCKED_ERR);
+        }
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new AuthenticationException(INVALID_CREDENTIAL_ERR);
@@ -76,6 +81,8 @@ public class AuthServiceImpl implements AuthService {
                 .target(0.0)
                 .description("")
                 .avatar(null)
+                .role(Role.USER)
+                .status(UserStatus.ACTIVE)
                 .build()
         );
     }

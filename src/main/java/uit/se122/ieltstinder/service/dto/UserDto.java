@@ -1,5 +1,8 @@
 package uit.se122.ieltstinder.service.dto;
 
+import uit.se122.ieltstinder.entity.enumeration.Role;
+import uit.se122.ieltstinder.entity.enumeration.UserStatus;
+
 public record UserDto(
         Long id,
         String firstName,
@@ -10,6 +13,8 @@ public record UserDto(
         Double overall,
         Double target,
         String description,
-        String avatar
+        String avatar,
+        UserStatus status,
+        Role role
 ) {
 }
