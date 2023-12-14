@@ -49,7 +49,7 @@ public class AuthServiceImpl implements AuthService {
 
         GenerateJwtResult jwtTokens = jwtProvider.generateToken(user);
         user.setNewSession(new UserSession(jwtTokens.tokenId(), jwtTokens.expiredDate()));
-        return new AuthLoginResponseDto(jwtTokens.accessToken(), jwtTokens.refreshToken());
+        return new AuthLoginResponseDto(user.getId(), jwtTokens.accessToken(), jwtTokens.refreshToken());
     }
 
     @Override
