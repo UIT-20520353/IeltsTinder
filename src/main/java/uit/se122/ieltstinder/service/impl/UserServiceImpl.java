@@ -1,6 +1,7 @@
 package uit.se122.ieltstinder.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -37,8 +38,14 @@ public class UserServiceImpl extends QueryService<User> implements UserService {
     private Specification<User> createSpecification(UserCriteria criteria) {
         Specification<User> specification = Specification.where(null);
         if (criteria != null) {
-            if (Objects.nonNull(criteria.getFirstName())) {
-                specification = specification.and(buildStringSpecification(criteria.getFirstName(), User_.firstName));
+            if (Objects.nonNull(criteria.getName())) {
+                Specification<User> specificationCustom = buildSpecification(criteria.getName(), User_.firstName);
+                specificationCustom = specificationCustom.or(buildSpecification(criteria.getName(), User_.lastName));
+                specification = specification.and(specificationCustom);
+            }
+
+            if (Objects.nonNull(criteria.getRole())) {
+                specification = specification.and(buildSpecification(criteria.getRole(), User_.role));
             }
         }
 
