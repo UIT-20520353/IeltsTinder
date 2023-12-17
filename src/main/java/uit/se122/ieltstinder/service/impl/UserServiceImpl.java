@@ -39,8 +39,10 @@ public class UserServiceImpl extends QueryService<User> implements UserService {
         Specification<User> specification = Specification.where(null);
         if (criteria != null) {
             if (Objects.nonNull(criteria.getName())) {
-                Specification<User> specificationCustom = buildSpecification(criteria.getName(), User_.firstName);
-                specificationCustom = specificationCustom.or(buildSpecification(criteria.getName(), User_.lastName));
+                Specification<User> specificationCustom = buildSpecification(criteria.getName(),
+                        root -> root.get(User_.firstName));
+                specificationCustom = specificationCustom.or(buildSpecification(criteria.getName(),
+                        root -> root.get(User_.lastName)));
                 specification = specification.and(specificationCustom);
             }
 
