@@ -2,6 +2,7 @@ package uit.se122.ieltstinder.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -20,9 +21,14 @@ public class ChatController {
     private final ChatService chatService;
 
     @MessageMapping("/message")
-    @SendTo("/chatroom/public")
+    @SendTo("/queue/reply")
     public MessageResponse receiveMessage(@Payload MessageRequest request) {
         return chatService.sendMessage(request);
+    }
+
+    @MessageMapping("/private-message")
+    public MessageResponse receivePrivateMessage(@Payload MessageRequest request) {
+        return null;
     }
 
 }

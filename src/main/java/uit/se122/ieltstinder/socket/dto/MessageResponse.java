@@ -5,8 +5,8 @@ import uit.se122.ieltstinder.socket.enumeration.MessageType;
 import java.time.Instant;
 
 public record MessageResponse (
-        Long id,
-        Long userId,
+        Long sender,
+        Long receiver,
         MessageType type,
         String message,
         Instant date
