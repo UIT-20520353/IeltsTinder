@@ -38,8 +38,8 @@ public class RequestServiceImpl implements RequestService {
 
         requestRepository.save(Request
                 .builder()
-                .user(user)
-                .targetUser(targetUser)
+                .sender(user)
+                .receiver(targetUser)
                 .build()
         );
     }
@@ -58,9 +58,9 @@ public class RequestServiceImpl implements RequestService {
     public void acceptRequest(Long requestId) {
         Request request = requestRepository.findById(requestId)
                         .orElseThrow(() -> new BadRequestException(REQUEST_NOT_EXIST));
-        User user = userRepository.findById(request.getUser().getId())
+        User user = userRepository.findById(request.getSender().getId())
                 .orElseThrow(() -> new BadRequestException(USER_NOT_EXIST));
-        User targetUser = userRepository.findById(request.getTargetUser().getId())
+        User targetUser = userRepository.findById(request.getReceiver().getId())
                 .orElseThrow(() -> new BadRequestException(USER_NOT_EXIST));
 
         friendRepository.save(Friend
@@ -73,5 +73,9 @@ public class RequestServiceImpl implements RequestService {
         requestRepository.deleteById(requestId);
     }
 
+    @Override
+    public void deleteRequestByUserId(Long sender, Long receiver) {
+        requestRepository.deleteBySenderAndReceiver(sender, receiver);
+    }
 
 }

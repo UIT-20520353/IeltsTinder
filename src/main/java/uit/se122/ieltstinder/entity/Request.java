@@ -19,15 +19,15 @@ public class Request extends AbstractAuditingEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_from_user_id", nullable = false, referencedColumnName = "id")
-    private User user;
+    private User sender;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_to_user_id", nullable = false, referencedColumnName = "id")
-    private User targetUser;
+    private User receiver;
 
-    public Request(User user, User targetUser) {
-        this.user = user;
-        this.targetUser = targetUser;
+    public Request(User sender, User receiver) {
+        this.sender = sender;
+        this.receiver = receiver;
     }
 
 }

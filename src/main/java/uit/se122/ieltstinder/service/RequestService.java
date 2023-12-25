@@ -10,5 +10,6 @@ public interface RequestService {
     Page<RequestDto> getRequests(Long userId, Pageable pageable);
     void deleteRequest(Long requestId);
     void acceptRequest(Long requestId);
+    void deleteRequestByUserId(Long sender, Long receiver);
 
 }

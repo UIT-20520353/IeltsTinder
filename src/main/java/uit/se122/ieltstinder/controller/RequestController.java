@@ -48,4 +48,10 @@ public class RequestController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping(value = "/user/{receiver}")
+    public ResponseEntity<Void> deleteRequestByUserId(@PathVariable Long receiver) {
+        requestService.deleteRequestByUserId(SecurityUtils.getCurrentUserId(), receiver);
+        return ResponseEntity.noContent().build();
+    }
+
 }

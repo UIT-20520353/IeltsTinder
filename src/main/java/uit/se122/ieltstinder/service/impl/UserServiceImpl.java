@@ -49,6 +49,10 @@ public class UserServiceImpl extends QueryService<User> implements UserService {
             if (Objects.nonNull(criteria.getRole())) {
                 specification = specification.and(buildSpecification(criteria.getRole(), User_.role));
             }
+
+            if (Objects.nonNull(criteria.getStatus())) {
+                specification = specification.and(buildSpecification(criteria.getStatus(), User_.status));
+            }
         }
 
         return specification;
@@ -72,5 +76,11 @@ public class UserServiceImpl extends QueryService<User> implements UserService {
 
         return userMapper.toUserProfile(user);
     }
+
+    @Override
+    public Page<UserDto> getUserForRequest(Long userId, Pageable pageable) {
+        return userRepository.findUsersNotInvolvedInRequestWithUserId(userId, pageable).map(userMapper::toUserDto);
+    }
+
 
 }

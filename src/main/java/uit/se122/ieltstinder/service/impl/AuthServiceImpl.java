@@ -80,7 +80,7 @@ public class AuthServiceImpl implements AuthService {
                 .overall(0.0)
                 .target(0.0)
                 .description("")
-                .avatar(null)
+                .avatar("https://upload.wikimedia.org/wikipedia/commons/a/af/Default_avatar_profile.jpg")
                 .role(Role.USER)
                 .status(UserStatus.ACTIVE)
                 .build()

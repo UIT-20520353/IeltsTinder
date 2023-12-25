@@ -14,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import uit.se122.ieltstinder.entity.User;
+import uit.se122.ieltstinder.security.SecurityUtils;
 import uit.se122.ieltstinder.service.UserService;
 import uit.se122.ieltstinder.service.criteria.UserCriteria;
 import uit.se122.ieltstinder.service.dto.UserDto;
@@ -30,8 +31,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<UserDto>> getAllUsers(UserCriteria criteria, @ParameterObject @PageableDefault Pageable pageable) {
-        final Page<UserDto> page = userService.getAllUsers(criteria, pageable);
+    public ResponseEntity<List<UserDto>> getUserForRequest(@ParameterObject @PageableDefault Pageable pageable) {
+        final Page<UserDto> page = userService.getUserForRequest(SecurityUtils.getCurrentUserId(), pageable);
         final HttpHeaders headers = PaginationUtils
                 .generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());

@@ -14,8 +14,8 @@ public class RequestMapper {
     public RequestDto toRequestDto(Request request) {
         return new RequestDto(
                 request.getId(),
-                userMapper.toUserDto(request.getUser()),
-                userMapper.toUserDto(request.getTargetUser())
+                userMapper.toUserDto(request.getSender()),
+                userMapper.toUserDto(request.getReceiver())
         );
     }
 
