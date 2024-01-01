@@ -8,12 +8,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import uit.se122.ieltstinder.service.UserService;
 import uit.se122.ieltstinder.service.criteria.UserCriteria;
+import uit.se122.ieltstinder.service.dto.UserAdminDto;
 import uit.se122.ieltstinder.service.dto.UserDto;
 import uit.se122.ieltstinder.util.PaginationUtils;
 
@@ -28,11 +27,23 @@ public class UserAdminController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<UserDto>> getUsers(UserCriteria criteria, @ParameterObject @PageableDefault Pageable pageable) {
-        final Page<UserDto> page = userService.getAllUsers(criteria, pageable);
+    public ResponseEntity<List<UserAdminDto>> getUsers(UserCriteria criteria, @ParameterObject @PageableDefault Pageable pageable) {
+        final Page<UserAdminDto> page = userService.getAllUsers(criteria, pageable);
         final HttpHeaders headers = PaginationUtils
                 .generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @PostMapping(value = "/{userId}/block")
+    public ResponseEntity<Void> blockUser(@PathVariable Long userId) {
+        userService.blockUser(userId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping(value = "/{userId}/unblock")
+    public ResponseEntity<Void> unblockUser(@PathVariable Long userId) {
+        userService.unblockUser(userId);
+        return ResponseEntity.noContent().build();
     }
 
 }

@@ -41,5 +41,7 @@ public class MessageConstant {
 
     public static final String USER_WAS_BLOCKED_ERR = "error.validate.user.blocked";
 
+    public static final String USER_IS_NOT_ADMIN = "error.validate.user.is-not-admin";
+
 
 }

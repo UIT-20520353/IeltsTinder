@@ -19,10 +19,12 @@ import java.util.Objects;
 public class UserCriteria implements Serializable, Criteria {
 
     private StringFilter name;
+    private StringFilter email;
     private UserRoleFilter role;
     private  UserStatusFilter status;
 
     public UserCriteria(UserCriteria other) {
+        this.email = Objects.nonNull(other.email) ? other.email : null;
         this.name = Objects.nonNull(other.name) ? other.name : null;
         this.role = Objects.nonNull(other.role) ? other.role : null;
         this.status = Objects.nonNull(other.status) ? other.status : null;

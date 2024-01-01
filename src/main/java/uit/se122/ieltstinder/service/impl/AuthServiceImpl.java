@@ -34,13 +34,17 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public AuthLoginResponseDto login(AuthLoginRequestDto request) {
+    public AuthLoginResponseDto login(AuthLoginRequestDto request, Role role) {
         User user = userRepository
                 .findByEmail(request.getEmail())
                 .orElseThrow(() -> new AuthenticationException(INVALID_CREDENTIAL_ERR));
 
         if (UserStatus.BLOCKED.equals(user.getStatus())) {
             throw new AuthenticationException(USER_WAS_BLOCKED_ERR);
+        }
+
+        if (Role.ADMIN.equals(role) && !Role.ADMIN.equals(user.getRole())) {
+            throw new AuthenticationException(USER_IS_NOT_ADMIN);
         }
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {

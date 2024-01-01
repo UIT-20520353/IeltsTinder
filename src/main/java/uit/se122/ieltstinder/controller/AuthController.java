@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uit.se122.ieltstinder.entity.User;
+import uit.se122.ieltstinder.entity.enumeration.Role;
 import uit.se122.ieltstinder.security.SecurityUtils;
 import uit.se122.ieltstinder.service.AuthService;
 import uit.se122.ieltstinder.service.UserService;
@@ -25,7 +26,7 @@ public class AuthController {
 
     @PostMapping(value = "/login")
     public ResponseEntity<AuthLoginResponseDto> login(@Valid @RequestBody AuthLoginRequestDto request) {
-        return ResponseEntity.ok(authService.login(request));
+        return ResponseEntity.ok(authService.login(request, Role.USER));
     }
 
     @PostMapping(value = "/logout")
@@ -43,6 +44,11 @@ public class AuthController {
     @GetMapping(value = "/profile")
     public ResponseEntity<UserProfileResponseDto> getProfile() {
         return ResponseEntity.ok(userService.getUserProfile(SecurityUtils.getCurrentUserId()));
+    }
+
+    @PostMapping(value = "/admin/login")
+    public ResponseEntity<AuthLoginResponseDto> adminLogin(@Valid @RequestBody AuthLoginRequestDto request) {
+        return ResponseEntity.ok(authService.login(request, Role.ADMIN));
     }
 
 }
