@@ -43,5 +43,9 @@ public class MessageConstant {
 
     public static final String USER_IS_NOT_ADMIN = "error.validate.user.is-not-admin";
 
+    public static final String IMAGE_TYPE_INVALID_ERROR = "error.validate.file.image.invalid-file";
+    public static final String IMAGE_SIZE_INVALID_ERROR = "error.validate.file.image.invalid-size";
+    public static final String AUDIO_TYPE_INVALID_ERROR = "error.validate.file.audio.invalid-file";
+    public static final String AUDIO_SIZE_INVALID_ERROR = "error.validate.file.audio.invalid-size";
 
 }

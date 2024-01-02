@@ -9,11 +9,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import uit.se122.ieltstinder.service.ResourceService;
 import uit.se122.ieltstinder.service.UserService;
 import uit.se122.ieltstinder.service.criteria.UserCriteria;
 import uit.se122.ieltstinder.service.dto.UserAdminDto;
-import uit.se122.ieltstinder.service.dto.UserDto;
 import uit.se122.ieltstinder.util.PaginationUtils;
 
 import java.util.List;
@@ -25,6 +26,7 @@ import java.util.List;
 public class UserAdminController {
 
     private final UserService userService;
+    private final ResourceService resourceService;
 
     @GetMapping
     public ResponseEntity<List<UserAdminDto>> getUsers(UserCriteria criteria, @ParameterObject @PageableDefault Pageable pageable) {
@@ -44,6 +46,12 @@ public class UserAdminController {
     public ResponseEntity<Void> unblockUser(@PathVariable Long userId) {
         userService.unblockUser(userId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping(value = "/add", consumes = { "multipart/form-data" })
+    public ResponseEntity<Void> addSocialMedia(@RequestPart("audio") MultipartFile audio) {
+            resourceService.uploadAudio(audio);
+            return ResponseEntity.noContent().build();
     }
 
 }

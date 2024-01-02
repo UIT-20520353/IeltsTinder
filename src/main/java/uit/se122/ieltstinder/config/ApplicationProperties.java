@@ -12,6 +12,7 @@ public class ApplicationProperties {
 
     private final SecurityProperties security;
     private final CorsConfiguration cors;
+    private final S3Properties s3;
 
     public record SecurityProperties(
             JwtProperties jwt
@@ -21,6 +22,10 @@ public class ApplicationProperties {
             String secret,
             long accessTokenInMinutes,
             long refreshTokenInHours
+    ) {}
+
+    public record S3Properties(
+            String endpoint
     ) {}
 
 }
