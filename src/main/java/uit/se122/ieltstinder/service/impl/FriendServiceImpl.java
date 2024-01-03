@@ -36,8 +36,7 @@ public class FriendServiceImpl extends QueryService<Friend> implements FriendSer
     @Override
     public Page<FriendDto> getFriends(Long friendId, FriendCriteria criteria, Pageable pageable) {
         Specification<Friend> specification = createSpecification(criteria);
-//        return friendRepository.findByFkUserId(friendId, specification, pageable).map(friendMapper::toFriendDto);
-        return null;
+        return friendRepository.findByFkUserId(friendId, pageable).map(friendMapper::toFriendDto);
     }
 
     private Specification<Friend> createSpecification(FriendCriteria criteria) {

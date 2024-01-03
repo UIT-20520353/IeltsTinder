@@ -18,9 +18,7 @@ public interface FriendRepository extends JpaRepository<Friend, Long>, JpaSpecif
     @Query("DELETE FROM Friend f WHERE f.user.id = :userId AND f.friend.id = :friendId")
     void deleteByUserIdAndFriendId(@Param("userId") Long userId, @Param("friendId") Long friendId);
 
-//    @Transactional
-//    @Lock(LockModeType.PESSIMISTIC_WRITE)
-//    @Query("SELECT f FROM Friend f WHERE f.friend.id = :userId")
-//    Page<Friend> findByFkUserId(@Param("userId") Long userId, Specification<Friend> criteria, Pageable pageable);
+    @Query("SELECT f FROM Friend f WHERE f.friend.id = :userId OR f.user.id = :userId")
+    Page<Friend> findByFkUserId(@Param("userId") Long userId, Pageable pageable);
 
 }
