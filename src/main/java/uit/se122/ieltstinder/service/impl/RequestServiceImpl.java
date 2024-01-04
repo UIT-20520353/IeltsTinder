@@ -3,25 +3,32 @@ package uit.se122.ieltstinder.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uit.se122.ieltstinder.entity.Friend;
 import uit.se122.ieltstinder.entity.Request;
+import uit.se122.ieltstinder.entity.Request_;
 import uit.se122.ieltstinder.entity.User;
+import uit.se122.ieltstinder.entity.User_;
 import uit.se122.ieltstinder.exception.BadRequestException;
 import uit.se122.ieltstinder.repository.FriendRepository;
 import uit.se122.ieltstinder.repository.RequestRepository;
 import uit.se122.ieltstinder.repository.UserRepository;
 import uit.se122.ieltstinder.service.RequestService;
+import uit.se122.ieltstinder.service.criteria.RequestCriteria;
 import uit.se122.ieltstinder.service.dto.RequestDto;
 import uit.se122.ieltstinder.service.mapper.RequestMapper;
+import uit.se122.ieltstinder.service.query.QueryService;
+
+import java.util.Objects;
 
 import static uit.se122.ieltstinder.constant.MessageConstant.REQUEST_NOT_EXIST;
 import static uit.se122.ieltstinder.constant.MessageConstant.USER_NOT_EXIST;
 
 @Service
 @RequiredArgsConstructor
-public class RequestServiceImpl implements RequestService {
+public class RequestServiceImpl extends QueryService<Request> implements RequestService {
 
     private final FriendRepository friendRepository;
     private final RequestRepository requestRepository;
@@ -45,8 +52,20 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public Page<RequestDto> getRequests(Long userId, Pageable pageable) {
-        return requestRepository.findByUserId(userId, pageable).map(requestMapper::toRequestDto);
+    public Page<RequestDto> getRequests(RequestCriteria criteria, Pageable pageable) {
+        Specification<Request> specification = createSpecification(criteria);
+        return requestRepository.findAll(specification, pageable).map(requestMapper::toRequestDto);
+    }
+
+    private Specification<Request> createSpecification(RequestCriteria criteria) {
+        Specification<Request> specification = Specification.where(null);
+        if (criteria != null) {
+            if (Objects.nonNull(criteria.getReceiver())) {
+                specification = specification.and(buildSpecification(criteria.getReceiver(),
+                        root -> root.get(Request_.RECEIVER).get(User_.id)));
+            }
+        }
+        return  specification;
     }
 
     @Override

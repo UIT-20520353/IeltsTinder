@@ -14,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import uit.se122.ieltstinder.entity.Request;
 import uit.se122.ieltstinder.security.SecurityUtils;
 import uit.se122.ieltstinder.service.RequestService;
+import uit.se122.ieltstinder.service.criteria.RequestCriteria;
 import uit.se122.ieltstinder.service.dto.RequestDto;
 import uit.se122.ieltstinder.service.dto.request.CreateRequestDto;
 import uit.se122.ieltstinder.util.PaginationUtils;
@@ -35,8 +36,8 @@ public class RequestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<RequestDto>> getRequests(@ParameterObject @PageableDefault Pageable pageable) {
-        final Page<RequestDto> page = requestService.getRequests(SecurityUtils.getCurrentUserId(), pageable);
+    public ResponseEntity<List<RequestDto>> getRequests(RequestCriteria criteria, @ParameterObject @PageableDefault Pageable pageable) {
+        final Page<RequestDto> page = requestService.getRequests(criteria, pageable);
         final HttpHeaders headers = PaginationUtils
                 .generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
