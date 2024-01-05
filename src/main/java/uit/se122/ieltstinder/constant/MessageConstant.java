@@ -7,9 +7,11 @@ public class MessageConstant {
     public static final String INVALID_CREDENTIAL_ERR = "error.validate.login.invalid-credential";
 
     public static final String USER_NOT_EXIST = "error.user.not-exist";
+    public static final String CHAT_ROOM_NOT_EXIST = "error.chatroom.not-exist";
     public static final String USER_ALREADY_EXIST_ERR = "error.validate.user.already-exist";
 
     public static final String REQUEST_NOT_EXIST = "error.request.not-exist";
+    public static final String REQUEST_ACCEPTED = "error.request.accepted";
 
     public static final String FIRST_NAME_REQUIRED_ERROR = "error.validate.first-name.required";
     public static final String FIRST_NAME_MAX_LENGTH_ERROR = "error.validate.first-name.length.max";

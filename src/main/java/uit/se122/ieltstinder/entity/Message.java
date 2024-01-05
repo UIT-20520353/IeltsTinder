@@ -29,4 +29,7 @@ public class Message {
     @Column(name = "date")
     private Instant date;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_chatroom_id", nullable = true, referencedColumnName = "id")
+    private ChatRoom chatRoom;
 }

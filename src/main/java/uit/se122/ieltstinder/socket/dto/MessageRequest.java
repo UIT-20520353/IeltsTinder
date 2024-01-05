@@ -15,5 +15,6 @@ import java.time.Instant;
 public class MessageRequest {
     private String message;
     private MessageType type;
-    private String token;
+    private String chatroomId;
+    private Long userId;
 }

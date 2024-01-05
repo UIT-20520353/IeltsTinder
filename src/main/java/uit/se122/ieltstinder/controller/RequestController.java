@@ -55,4 +55,32 @@ public class RequestController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping(value = "/sent")
+    private ResponseEntity<List<RequestDto>> getSentRequests(@ParameterObject @PageableDefault Pageable pageable) {
+        final  Page<RequestDto> page = requestService.getSentRequest(SecurityUtils.getCurrentUserId(), pageable);
+        final HttpHeaders headers = PaginationUtils
+                .generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping(value = "/received")
+    private ResponseEntity<List<RequestDto>> getReceivedRequests(@ParameterObject @PageableDefault Pageable pageable) {
+        final  Page<RequestDto> page = requestService.getReceivedRequest(SecurityUtils.getCurrentUserId(), pageable);
+        final HttpHeaders headers = PaginationUtils
+                .generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @PostMapping(value = "/accept/{userId}")
+    public ResponseEntity<Void> acceptRequest(@PathVariable Long userId) {
+        requestService.acceptRequest(userId, SecurityUtils.getCurrentUserId());
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping(value = "/reject/{userId}")
+    public ResponseEntity<Void> rejectRequest(@PathVariable Long userId) {
+        requestService.deleteRequestByUserId(userId, SecurityUtils.getCurrentUserId());
+        return ResponseEntity.noContent().build();
+    }
+
 }

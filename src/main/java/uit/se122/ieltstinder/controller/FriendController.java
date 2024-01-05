@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import uit.se122.ieltstinder.security.SecurityUtils;
 import uit.se122.ieltstinder.service.FriendService;
-import uit.se122.ieltstinder.service.RequestService;
 import uit.se122.ieltstinder.service.criteria.FriendCriteria;
 import uit.se122.ieltstinder.service.dto.FriendDto;
 import uit.se122.ieltstinder.util.PaginationUtils;
@@ -25,14 +24,7 @@ import java.util.List;
 @Tag(name = "Friend Resources")
 public class FriendController {
 
-    private final RequestService requestService;
     private final FriendService friendService;
-
-    @PostMapping(value = "/{requestId}")
-    public ResponseEntity<Void> acceptRequest(@PathVariable Long requestId) {
-        requestService.acceptRequest(requestId);
-        return ResponseEntity.noContent().build();
-    }
 
     @DeleteMapping(value = "/{friendId}")
     public ResponseEntity<Void> unfriend(@PathVariable Long friendId) {

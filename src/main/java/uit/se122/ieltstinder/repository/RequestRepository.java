@@ -18,9 +18,15 @@ public interface RequestRepository extends JpaRepository<Request, Long>, JpaSpec
     @Query("SELECT r FROM Request r WHERE r.sender.id = :fk_user_id")
     Page<Request> findByUserId(Long fk_user_id, Pageable pageable);
 
+    @Query("SELECT r FROM Request r WHERE r.receiver.id = :userId")
+    Page<Request> findRequestReceived(Long userId, Pageable pageable);
+
+    @Query("SELECT r FROM Request r WHERE r.sender.id = :sender AND r.receiver.id = :receiver")
+    Optional<Request> findRequestBySenderAndReceiver(Long sender, Long receiver);
+
     @Modifying
-    @Transactional
-    @Query("DELETE FROM Request  r WHERE r.sender.id = :sender AND r.receiver.id = :receiver")
+    @Transactional(readOnly = false)
+    @Query("DELETE FROM Request r WHERE r.sender.id = :sender AND r.receiver.id = :receiver")
     Integer deleteBySenderAndReceiver(Long sender, Long receiver);
 
 }

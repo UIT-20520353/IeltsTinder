@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import uit.se122.ieltstinder.entity.Friend;
 import uit.se122.ieltstinder.entity.Friend_;
 import uit.se122.ieltstinder.entity.User_;
+import uit.se122.ieltstinder.repository.ChatRoomRepository;
 import uit.se122.ieltstinder.repository.FriendRepository;
 import uit.se122.ieltstinder.service.FriendService;
 import uit.se122.ieltstinder.service.criteria.FriendCriteria;
@@ -26,11 +27,13 @@ public class FriendServiceImpl extends QueryService<Friend> implements FriendSer
 
     private final FriendRepository friendRepository;
     private final FriendMapper friendMapper;
+    private final ChatRoomRepository chatRoomRepository;
 
     @Override
     @Transactional
     public void unfriend(Long userId, Long friendId) {
         friendRepository.deleteByUserIdAndFriendId(userId, friendId);
+        chatRoomRepository.deleteByTwoUserId(userId, friendId);
     }
 
     @Override
