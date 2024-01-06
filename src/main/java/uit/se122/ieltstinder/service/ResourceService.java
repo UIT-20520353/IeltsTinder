@@ -4,7 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface ResourceService {
 
-    void uploadAudio(MultipartFile audio);
-    void uploadImage(MultipartFile image);
+    String uploadAudio(MultipartFile audio);
+    String uploadImage(MultipartFile image);
 
 }

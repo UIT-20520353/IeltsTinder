@@ -8,6 +8,9 @@ public class MessageConstant {
 
     public static final String USER_NOT_EXIST = "error.user.not-exist";
     public static final String CHAT_ROOM_NOT_EXIST = "error.chatroom.not-exist";
+    public static final String TEST_NOT_EXIST = "error.test.not-exist";
+    public static final String QUESTION_NOT_EXIST = "error.question.not-exist";
+    public static final String ANSWER_NOT_EXIST = "error.answer.not-exist";
     public static final String USER_ALREADY_EXIST_ERR = "error.validate.user.already-exist";
 
     public static final String REQUEST_NOT_EXIST = "error.request.not-exist";

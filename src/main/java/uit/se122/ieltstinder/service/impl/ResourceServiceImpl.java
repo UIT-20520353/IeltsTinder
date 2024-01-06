@@ -18,20 +18,19 @@ public class ResourceServiceImpl implements ResourceService {
     private final S3Service s3Service;
 
     @Override
-    public void uploadAudio(MultipartFile audio) {
+    public String uploadAudio(MultipartFile audio) {
         byte[] bytes = FileUtils.checkAudioFile(audio);
         String key = "audio" + "-" + UUID.randomUUID() + ".mp3";
 
-        String url = s3Service.uploadFile(key,"ieltstinder", bytes, List.of("audio"), audio.getContentType());
-        System.out.println(url);
+        return s3Service.uploadFile(key,"ieltstinder", bytes, List.of("audio"), audio.getContentType());
     }
 
     @Override
-    public void uploadImage(MultipartFile image) {
+    public String uploadImage(MultipartFile image) {
         byte[] bytes = FileUtils.checkFile(image);
         String key = "audio" + "-" + UUID.randomUUID() + ".png";
 
         String url = s3Service.uploadFile(key,"ieltstinder", bytes, List.of("image"), image.getContentType());
-        System.out.println(url);
+        return url;
     }
 }
