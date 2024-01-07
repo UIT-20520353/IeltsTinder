@@ -1,8 +1,8 @@
 package uit.se122.ieltstinder.controller.admin;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +16,7 @@ import uit.se122.ieltstinder.service.TestService;
 import uit.se122.ieltstinder.service.criteria.TestCriteria;
 import uit.se122.ieltstinder.service.dto.TestDetailDto;
 import uit.se122.ieltstinder.service.dto.TestDto;
+import uit.se122.ieltstinder.service.dto.request.CreateTestDto;
 import uit.se122.ieltstinder.service.dto.request.TestRequest;
 import uit.se122.ieltstinder.util.PaginationUtils;
 
@@ -52,6 +53,12 @@ public class TestAdminController {
                                                    @RequestPart(name = "resource", required = false) MultipartFile resource,
                                                    @RequestPart(name = "paragraph", required = false) String paragraph) {
         testService.addReadingResource(testId, resource, paragraph);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> createNewTest(@Valid @RequestBody CreateTestDto request) {
+        testService.createTest(request);
         return ResponseEntity.noContent().build();
     }
 

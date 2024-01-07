@@ -16,6 +16,7 @@ import uit.se122.ieltstinder.service.TestService;
 import uit.se122.ieltstinder.service.criteria.TestCriteria;
 import uit.se122.ieltstinder.service.dto.TestDetailDto;
 import uit.se122.ieltstinder.service.dto.TestDto;
+import uit.se122.ieltstinder.service.dto.request.CreateTestDto;
 import uit.se122.ieltstinder.service.dto.request.TestRequest;
 import uit.se122.ieltstinder.service.mapper.TestMapper;
 import uit.se122.ieltstinder.service.query.QueryService;
@@ -74,6 +75,15 @@ public class TestServiceImpl extends QueryService<Test> implements TestService {
         if (Objects.nonNull(paragraph)) {
             test.setParagraph(paragraph);
         }
+    }
+
+    @Override
+    @Transactional
+    public void createTest(CreateTestDto request) {
+        testRepository.save(Test.builder()
+                .name(request.getName())
+                .level(request.getLevel())
+                .build());
     }
 
     private Specification<Test> createSpecification(TestCriteria criteria) {

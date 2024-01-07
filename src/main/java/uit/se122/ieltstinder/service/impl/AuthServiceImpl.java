@@ -82,7 +82,7 @@ public class AuthServiceImpl implements AuthService {
                 .gender(request.getGender())
                 .address(request.getAddress())
                 .overall(0.0)
-                .target(0.0)
+                .target(3.0)
                 .description("")
                 .avatar("https://upload.wikimedia.org/wikipedia/commons/a/af/Default_avatar_profile.jpg")
                 .role(Role.USER)

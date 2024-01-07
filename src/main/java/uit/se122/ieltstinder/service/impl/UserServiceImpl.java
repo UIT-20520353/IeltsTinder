@@ -8,12 +8,15 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import org.springframework.web.multipart.MultipartFile;
 import uit.se122.ieltstinder.entity.User;
 import uit.se122.ieltstinder.entity.User_;
 import uit.se122.ieltstinder.entity.enumeration.UserStatus;
 import uit.se122.ieltstinder.exception.BadRequestException;
+import uit.se122.ieltstinder.service.ResourceService;
 import uit.se122.ieltstinder.service.criteria.UserCriteria;
 import uit.se122.ieltstinder.service.dto.UserAdminDto;
+import uit.se122.ieltstinder.service.dto.request.UpdateUserProfile;
 import uit.se122.ieltstinder.service.dto.response.UserProfileResponseDto;
 import uit.se122.ieltstinder.service.mapper.UserMapper;
 import uit.se122.ieltstinder.repository.UserRepository;
@@ -31,6 +34,7 @@ import static uit.se122.ieltstinder.constant.MessageConstant.USER_NOT_EXIST;
 public class UserServiceImpl extends QueryService<User> implements UserService {
     private final UserMapper userMapper;
     private final UserRepository userRepository;
+    private final ResourceService resourceService;
 
     @Override
     public Page<UserAdminDto> getAllUsers(UserCriteria criteria, Pageable pageable) {
@@ -106,6 +110,38 @@ public class UserServiceImpl extends QueryService<User> implements UserService {
                 .findById(userId)
                 .orElseThrow(() -> new BadRequestException(USER_NOT_EXIST));
         user.setStatus(UserStatus.ACTIVE);
+    }
+
+    @Override
+    public UserProfileResponseDto getProfile(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new BadRequestException(USER_NOT_EXIST));
+        return userMapper.toUserProfile(user);
+    }
+
+    @Override
+    @Transactional
+    public void updateAvatar(Long userId, MultipartFile image) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new BadRequestException(USER_NOT_EXIST));
+
+        String url = resourceService.uploadImage(image);
+        user.setAvatar(url);
+    }
+
+    @Override
+    @Transactional
+    public void updateUserProfile(Long userId, UpdateUserProfile request) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new BadRequestException(USER_NOT_EXIST));
+
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setAddress(request.getAddress());
+        user.setGender(request.getGender());
+        user.setAge(request.getAge());
+        user.setOverall(request.getOverall());
+        user.setTarget(request.getTarget());
     }
 
 }
