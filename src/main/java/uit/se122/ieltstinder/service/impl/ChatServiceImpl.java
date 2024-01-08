@@ -43,6 +43,21 @@ public class ChatServiceImpl implements ChatService {
         ChatRoom chatRoom = chatRoomRepository.findById(Long.parseLong(request.getChatroomId()))
                         .orElseThrow(() -> new BadRequestException(CHAT_ROOM_NOT_EXIST));
 
+
+        if (request.getType() == MessageType.CALL) {
+            String message = user.getFirstName() + " " + user.getLastName();
+
+            if (chatRoom.getUser1().getId().equals(request.getUserId())) {
+                simpMessagingTemplate.convertAndSendToUser(chatRoom.getUser2().getId().toString(),
+                        "notification", message);
+            }
+            else {
+                simpMessagingTemplate.convertAndSendToUser(chatRoom.getUser1().getId().toString(),
+                        "notification", message);
+            }
+            return messageResponse;
+        }
+
         messageRepository.save(Message
                 .builder()
                 .user(user)

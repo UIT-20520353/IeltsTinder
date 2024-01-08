@@ -11,6 +11,7 @@ public record UserProfileResponseDto(
         Double overall,
         Double target,
         String description,
-        String avatar
+        String avatar,
+        String token
 ) {
 }

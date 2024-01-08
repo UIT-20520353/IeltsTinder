@@ -51,8 +51,10 @@ public class AuthServiceImpl implements AuthService {
             throw new AuthenticationException(INVALID_CREDENTIAL_ERR);
         }
 
+        String videoSdkToken = jwtProvider.generateVideoSdkToken(user);
         GenerateJwtResult jwtTokens = jwtProvider.generateToken(user);
         user.setNewSession(new UserSession(jwtTokens.tokenId(), jwtTokens.expiredDate()));
+        user.setVideoSdkToken(videoSdkToken);
         return new AuthLoginResponseDto(user.getId(), jwtTokens.accessToken(), jwtTokens.refreshToken());
     }
 
@@ -60,6 +62,7 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public void logout() {
         String tokenId = SecurityUtils.getCurrentTokenId();
+        userRepository.updateTokenById(SecurityUtils.getCurrentUserId());
         userSessionService.removeExpiredSession(tokenId);
     }
 

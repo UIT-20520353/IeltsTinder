@@ -31,6 +31,24 @@ public class JwtProvider {
         this.refreshTokenInHours = properties.getSecurity().jwt().refreshTokenInHours();
     }
 
+    public String generateVideoSdkToken(User user) {
+        Map<String, Object> payload = new HashMap<>();
+        String VIDEO_SDK_API_KEY = "82b5a153-4891-48f9-b26d-ea5a69df12ac";
+        String VIDEO_SDK_SECRET_KEY = "de4d87a8a134a868691874a94f5c3ea47af5cea1eb542507cb84e7c581eef2af";
+
+        payload.put("apikey", VIDEO_SDK_API_KEY);
+        payload.put("permissions", new String[] { "allow_join" });
+        payload.put("version", 2);
+        payload.put("participantId", user.getId());
+
+        return Jwts
+                .builder()
+                .setClaims(payload)
+                .setExpiration(new Date(System.currentTimeMillis() + 86400 * 1000))
+                .signWith(SignatureAlgorithm.HS256, VIDEO_SDK_SECRET_KEY.getBytes())
+                .compact();
+    }
+
     public GenerateJwtResult generateToken(User user) {
         return generateToken(new HashMap<>(), user);
     }

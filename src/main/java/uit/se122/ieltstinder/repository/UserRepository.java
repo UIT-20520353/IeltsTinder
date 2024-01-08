@@ -4,8 +4,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import uit.se122.ieltstinder.entity.User;
 import uit.se122.ieltstinder.service.dto.UserDto;
 
@@ -20,5 +22,10 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
             "OR (r.sender.id = u.id AND r.receiver.id = :userId))" +
     "AND NOT EXISTS (SELECT 1 FROM Friend f WHERE (f.user.id = :userId AND f.friend.id = u.id) OR (f.user.id = u.id AND f.friend.id = :userId))")
     Page<User> findUsersNotInvolvedInRequestWithUserId(Long userId, Pageable pageable);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE User u SET u.videoSdkToken = null WHERE u.id = :userId")
+    void updateTokenById(Long userId);
 
 }

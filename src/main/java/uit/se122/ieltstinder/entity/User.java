@@ -69,6 +69,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<UserSession> sessions;
 
+    @Column(name = "video_sdk_token")
+    private String videoSdkToken;
+
     public void setNewSession(UserSession session) {
         session.setUser(this);
         this.sessions.clear();
