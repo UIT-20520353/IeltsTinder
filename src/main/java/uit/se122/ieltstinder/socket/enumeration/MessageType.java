@@ -4,5 +4,8 @@ public enum MessageType {
     JOIN,
     MESSAGE,
     LEAVE,
-    CALL
+    CALL,
+    CANCEL,
+    REJECT,
+    ACCEPT
 }

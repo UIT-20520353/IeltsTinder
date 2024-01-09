@@ -8,15 +8,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import uit.se122.ieltstinder.service.TestResultService;
 import uit.se122.ieltstinder.service.TestService;
 import uit.se122.ieltstinder.service.criteria.TestCriteria;
 import uit.se122.ieltstinder.service.dto.TestDetailDto;
 import uit.se122.ieltstinder.service.dto.TestDto;
+import uit.se122.ieltstinder.service.dto.request.SubmitTestRequest;
 import uit.se122.ieltstinder.util.PaginationUtils;
 
 import java.util.List;
@@ -28,6 +27,7 @@ import java.util.List;
 public class TestController {
 
     private final TestService testService;
+    private final TestResultService testResultService;
 
     @GetMapping
     public ResponseEntity<List<TestDto>> getTests(TestCriteria criteria, @ParameterObject @PageableDefault Pageable pageable) {
@@ -40,6 +40,12 @@ public class TestController {
     @GetMapping(value = "/{testId}")
     public ResponseEntity<TestDetailDto> getTest(@PathVariable Long testId) {
         return ResponseEntity.ok(testService.getTest(testId));
+    }
+
+    @PostMapping(value = "/submit")
+    public ResponseEntity<Void> submitResult(@RequestBody SubmitTestRequest request) {
+        testResultService.submitResult(request);
+        return ResponseEntity.noContent().build();
     }
 
 }
