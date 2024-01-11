@@ -16,19 +16,17 @@ public class TestMapper {
         return new TestDto(
                 "Test " + test.getId(),
                 test.getId(),
-                test.getName(),
-                test.getLevel()
+                test.getTitle(),
+                test.getDifficultyLevel()
         );
     }
 
     public TestDetailDto toTestDetailDto(Test test) {
         return new TestDetailDto(
                 test.getId(),
-                test.getName(),
-                test.getLevel(),
-                test.getQuestions().stream().map(questionMapper::toQuestionDto).toList(),
-                test.getImage(),
-                test.getParagraph()
+                test.getTitle(),
+                test.getDifficultyLevel(),
+                test.getQuestions().stream().map(questionMapper::toQuestionDto).toList()
         );
     }
 

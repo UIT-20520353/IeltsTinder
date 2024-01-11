@@ -6,10 +6,8 @@ import java.util.List;
 
 public record TestDetailDto (
         Long id,
-        String name,
-        TestLevel level,
-        List<QuestionDto> questions,
-        String image,
-        String paragraph
+        String title,
+        TestLevel difficultyLevel,
+        List<QuestionDto> questions
 ) {
 }

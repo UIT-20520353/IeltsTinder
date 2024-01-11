@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import uit.se122.ieltstinder.entity.enumeration.PartType;
+import uit.se122.ieltstinder.entity.enumeration.QuestionType;
 
 import java.util.List;
 
@@ -21,21 +22,21 @@ public class Question {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "type")
-    @Enumerated(EnumType.STRING)
-    private PartType type;
+    @Column(name = "audio_url")
+    private String audioUrl;
 
-    @Column(name = "question")
-    private String question;
+    @Column(name = "paragraph")
+    private String paragraph;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_test_id", nullable = false, referencedColumnName = "id")
     private Test test;
 
-    @Column(name = "resource", nullable = false)
-    private String resource;
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    private QuestionType type;
 
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
-    private List<Answer> answers;
+    private List<QuestionDetail> questionDetails;
 
 }

@@ -55,8 +55,8 @@ public class TestServiceImpl extends QueryService<Test> implements TestService {
                 .findById(testId)
                 .orElseThrow(() -> new BadRequestException(TEST_NOT_EXIST));
 
-        test.setName(request.getName());
-        test.setLevel(request.getLevel());
+        test.setTitle(request.getName());
+        test.setDifficultyLevel(request.getLevel());
         return testMapper.toTestDto(test);
     }
 
@@ -67,22 +67,22 @@ public class TestServiceImpl extends QueryService<Test> implements TestService {
                 .findById(testId)
                 .orElseThrow(() -> new BadRequestException(TEST_NOT_EXIST));
 
-        if (Objects.nonNull(resource)) {
-            String url = resourceService.uploadImage(resource);
-            test.setImage(url);
-        }
-
-        if (Objects.nonNull(paragraph)) {
-            test.setParagraph(paragraph);
-        }
+//        if (Objects.nonNull(resource)) {
+//            String url = resourceService.uploadImage(resource);
+//            test.setImage(url);
+//        }
+//
+//        if (Objects.nonNull(paragraph)) {
+//            test.setParagraph(paragraph);
+//        }
     }
 
     @Override
     @Transactional
     public void createTest(CreateTestDto request) {
         testRepository.save(Test.builder()
-                .name(request.getName())
-                .level(request.getLevel())
+                .title(request.getName())
+                .difficultyLevel(request.getLevel())
                 .build());
     }
 
@@ -92,12 +92,12 @@ public class TestServiceImpl extends QueryService<Test> implements TestService {
         if (criteria != null) {
             if (Objects.nonNull(criteria.getName())) {
                 specification = specification.and(buildSpecification(criteria.getName(),
-                        root -> root.get(Test_.name)));
+                        root -> root.get(Test_.title)));
             }
 
             if (Objects.nonNull(criteria.getLevel())) {
                 specification = specification.and(buildSpecification(criteria.getLevel(),
-                        root -> root.get(Test_.level)));
+                        root -> root.get(Test_.difficultyLevel)));
             }
 
             if (Objects.nonNull(criteria.getTestId())) {

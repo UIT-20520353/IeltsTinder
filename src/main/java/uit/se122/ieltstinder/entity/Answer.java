@@ -21,10 +21,10 @@ public class Answer {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_question_id", nullable = false, referencedColumnName = "id")
-    private Question question;
+    @JoinColumn(name = "fk_question_detail_id", nullable = false, referencedColumnName = "id")
+    private QuestionDetail questionDetail;
 
-    @Column(name = "is_result", nullable = false)
-    private Long isResult;
+    @Column(name = "is_correct", nullable = false)
+    private Boolean isCorrect;
 
 }

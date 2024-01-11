@@ -13,7 +13,7 @@ public class AnswerMapper {
         return new AnswerDto(
                 answer.getId(),
                 answer.getContent(),
-                answer.getIsResult() == 1
+                answer.getIsCorrect()
         );
     }
 

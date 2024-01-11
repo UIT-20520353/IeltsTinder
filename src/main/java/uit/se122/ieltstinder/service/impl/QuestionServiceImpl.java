@@ -38,33 +38,33 @@ public class QuestionServiceImpl  extends QueryService<Question> implements Ques
     @Override
     @Transactional
     public void addQuestion(Long testId, String question, PartType type, MultipartFile resource, List<AnswerRequestDto> answers) {
-        Test test = testRepository
-                        .findById(testId)
-                        .orElseThrow(() -> new BadRequestException(TEST_NOT_EXIST));
-
-        String url = "";
-        if (type == PartType.LISTENING) {
-            url = resourceService.uploadAudio(resource);
-        }
-
-        Question newQuestion = questionRepository.save(Question
-                                    .builder()
-                                    .type(type)
-                                    .question(question)
-                                    .test(test)
-                                    .resource(url)
-                                    .build()
-                                );
-
-        answers.forEach(answer -> {
-            answerRepository.save(
-                    Answer.builder()
-                            .content(answer.getContent())
-                            .question(newQuestion)
-                            .isResult(answer.getIsResult() ? 1L : 0)
-                            .build()
-            );
-        });
+//        Test test = testRepository
+//                        .findById(testId)
+//                        .orElseThrow(() -> new BadRequestException(TEST_NOT_EXIST));
+//
+//        String url = "";
+//        if (type == PartType.LISTENING) {
+//            url = resourceService.uploadAudio(resource);
+//        }
+//
+//        Question newQuestion = questionRepository.save(Question
+//                                    .builder()
+//                                    .type(type)
+//                                    .question(question)
+//                                    .test(test)
+//                                    .resource(url)
+//                                    .build()
+//                                );
+//
+//        answers.forEach(answer -> {
+//            answerRepository.save(
+//                    Answer.builder()
+//                            .content(answer.getContent())
+//                            .question(newQuestion)
+//                            .isResult(answer.getIsResult() ? 1L : 0)
+//                            .build()
+//            );
+//        });
     }
 
     @Override
@@ -76,55 +76,55 @@ public class QuestionServiceImpl  extends QueryService<Question> implements Ques
     @Override
     @Transactional
     public void updateQuestion(QuestionRequestUpdateDto question, List<AnswerRequestUpdateDto> answers, MultipartFile resource) {
-        String url = "";
-        if (Objects.nonNull(resource)) {
-            url = resourceService.uploadAudio(resource);
-        }
-
-        Question targetQuestion = questionRepository
-                .findById(question.getId())
-                .orElseThrow(() -> new BadRequestException(QUESTION_NOT_EXIST));
-
-        if (Strings.isNotBlank(url)) {
-            targetQuestion.setResource(url);
-        }
-        targetQuestion.setQuestion(question.getQuestion());
-
-        answers.forEach(answer -> {
-            if (answer.getId() != -1) {
-                Answer targetAnswer = answerRepository
-                                        .findById(answer.getId())
-                                        .orElseThrow(() -> new BadRequestException(ANSWER_NOT_EXIST));
-                targetAnswer.setContent(answer.getContent());
-                targetAnswer.setIsResult(answer.getIsResult() ? 1L : 0);
-                targetAnswer.setQuestion(targetQuestion);
-            }
-        });
+//        String url = "";
+//        if (Objects.nonNull(resource)) {
+//            url = resourceService.uploadAudio(resource);
+//        }
+//
+//        Question targetQuestion = questionRepository
+//                .findById(question.getId())
+//                .orElseThrow(() -> new BadRequestException(QUESTION_NOT_EXIST));
+//
+//        if (Strings.isNotBlank(url)) {
+//            targetQuestion.setResource(url);
+//        }
+//        targetQuestion.setQuestion(question.getQuestion());
+//
+//        answers.forEach(answer -> {
+//            if (answer.getId() != -1) {
+//                Answer targetAnswer = answerRepository
+//                                        .findById(answer.getId())
+//                                        .orElseThrow(() -> new BadRequestException(ANSWER_NOT_EXIST));
+//                targetAnswer.setContent(answer.getContent());
+//                targetAnswer.setIsResult(answer.getIsResult() ? 1L : 0);
+//                targetAnswer.setQuestion(targetQuestion);
+//            }
+//        });
     }
 
     @Override
     @Transactional
     public void addQuestionReading(QuestionReadingRequestDto request) {
-        Test test = testRepository
-                .findById(request.getTestId())
-                .orElseThrow(() -> new BadRequestException(TEST_NOT_EXIST));
-
-        Question question = questionRepository.save(Question
-                .builder()
-                .type(request.getType())
-                .question(request.getQuestion())
-                .test(test)
-                .resource("")
-                .build());
-
-        request.getAnswers().forEach(answer -> {
-            answerRepository.save(Answer
-                    .builder()
-                    .content(answer.getContent())
-                    .isResult(answer.getIsResult() ? 1L : 0)
-                    .question(question)
-                    .build());
-        });
+//        Test test = testRepository
+//                .findById(request.getTestId())
+//                .orElseThrow(() -> new BadRequestException(TEST_NOT_EXIST));
+//
+//        Question question = questionRepository.save(Question
+//                .builder()
+//                .type(request.getType())
+//                .question(request.getQuestion())
+//                .test(test)
+//                .resource("")
+//                .build());
+//
+//        request.getAnswers().forEach(answer -> {
+//            answerRepository.save(Answer
+//                    .builder()
+//                    .content(answer.getContent())
+//                    .isResult(answer.getIsResult() ? 1L : 0)
+//                    .question(question)
+//                    .build());
+//        });
     }
 
 }

@@ -21,20 +21,14 @@ public class Test {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "title")
+    private String title;
 
-    @Column(name = "level")
+    @Column(name = "difficulty_level")
     @Enumerated(EnumType.STRING)
-    private TestLevel level;
+    private TestLevel difficultyLevel;
 
     @OneToMany(mappedBy = "test", fetch = FetchType.LAZY)
     private List<Question> questions;
-
-    @Column(name = "image_reading")
-    private String image;
-
-    @Column(name = "paragraph")
-    private String paragraph;
 
 }
