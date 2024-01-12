@@ -5,7 +5,6 @@ import java.util.List;
 public record QuestionDetailDto(
         Long id,
         String text,
-        String explain,
         List<AnswerDto> answers
 ) {
 }

@@ -17,7 +17,6 @@ public class QuestionMapper {
         return new QuestionDetailDto(
                 questionDetail.getId(),
                 questionDetail.getText(),
-                questionDetail.getExplain(),
                 questionDetail.getAnswers().stream().map(answerMapper::toAnswerDto).toList()
         );
     }
