@@ -36,6 +36,9 @@ public class Question {
     @Enumerated(EnumType.STRING)
     private QuestionType type;
 
+    @Column(name = "description")
+    private String description;
+
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     private List<QuestionDetail> questionDetails;
 

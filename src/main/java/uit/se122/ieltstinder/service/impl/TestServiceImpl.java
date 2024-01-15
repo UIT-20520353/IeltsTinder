@@ -50,14 +50,13 @@ public class TestServiceImpl extends QueryService<Test> implements TestService {
 
     @Override
     @Transactional
-    public TestDto updateTest(Long testId, TestRequest request) {
+    public void updateTest(Long testId, TestRequest request) {
         Test test = testRepository
                 .findById(testId)
                 .orElseThrow(() -> new BadRequestException(TEST_NOT_EXIST));
 
-        test.setTitle(request.getName());
-        test.setDifficultyLevel(request.getLevel());
-        return testMapper.toTestDto(test);
+        test.setTitle(request.getTitle());
+        test.setDifficultyLevel(request.getDifficultyLevel());
     }
 
     @Override
@@ -84,6 +83,14 @@ public class TestServiceImpl extends QueryService<Test> implements TestService {
                 .title(request.getName())
                 .difficultyLevel(request.getLevel())
                 .build());
+    }
+
+    @Override
+    public void deleteTest(Long testId) {
+        Test test = testRepository
+                .findById(testId)
+                .orElseThrow(() -> new BadRequestException(TEST_NOT_EXIST));
+        testRepository.delete(test);
     }
 
     private Specification<Test> createSpecification(TestCriteria criteria) {

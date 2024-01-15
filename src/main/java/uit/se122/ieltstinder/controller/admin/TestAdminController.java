@@ -44,8 +44,9 @@ public class TestAdminController {
     }
 
     @PostMapping(value = "/{testId}")
-    public ResponseEntity<TestDto> updateTest(@PathVariable Long testId, @RequestBody TestRequest request) {
-        return ResponseEntity.ok(testService.updateTest(testId, request));
+    public ResponseEntity<Void> updateTest(@PathVariable Long testId, @RequestBody TestRequest request) {
+        testService.updateTest(testId, request);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping(value = "/{testId}/reading/add", consumes = { "multipart/form-data" })
@@ -59,6 +60,12 @@ public class TestAdminController {
     @PostMapping
     public ResponseEntity<Void> createNewTest(@Valid @RequestBody CreateTestDto request) {
         testService.createTest(request);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping(value = "/{testId}")
+    public ResponseEntity<Void> deleteTest(@PathVariable Long testId) {
+        testService.deleteTest(testId);
         return ResponseEntity.noContent().build();
     }
 

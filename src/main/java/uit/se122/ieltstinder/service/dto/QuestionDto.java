@@ -9,6 +9,7 @@ public record QuestionDto(
         String paragraph,
         String audioUrl,
         QuestionType type,
+        String description,
         List<QuestionDetailDto> questionDetails
 ) {
 }

@@ -27,6 +27,7 @@ public class QuestionMapper {
                 question.getParagraph(),
                 question.getAudioUrl(),
                 question.getType(),
+                question.getDescription(),
                 question.getQuestionDetails().stream().map(this::toQuestionDetailDto).toList()
         );
     }

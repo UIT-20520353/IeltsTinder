@@ -14,7 +14,8 @@ import java.util.Optional;
 public interface TestService {
     Page<TestDto> getAllTests(TestCriteria criteria, Pageable pageable);
     TestDetailDto getTest(Long testId);
-    TestDto updateTest(Long testId, TestRequest request);
+    void updateTest(Long testId, TestRequest request);
     void addReadingResource(Long testId, MultipartFile resource, String paragraph);
     void createTest(CreateTestDto request);
+    void deleteTest(Long testId);
 }
