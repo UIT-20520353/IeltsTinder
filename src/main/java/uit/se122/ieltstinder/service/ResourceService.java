@@ -6,5 +6,6 @@ public interface ResourceService {
 
     String uploadAudio(MultipartFile audio);
     String uploadImage(MultipartFile image);
+    String uploadVideo(MultipartFile video);
 
 }

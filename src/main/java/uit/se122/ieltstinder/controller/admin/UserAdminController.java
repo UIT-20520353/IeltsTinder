@@ -49,9 +49,8 @@ public class UserAdminController {
     }
 
     @PostMapping(value = "/add", consumes = { "multipart/form-data" })
-    public ResponseEntity<Void> addSocialMedia(@RequestPart("audio") MultipartFile audio) {
-            resourceService.uploadAudio(audio);
-            return ResponseEntity.noContent().build();
+    public ResponseEntity<String> addSocialMedia(@RequestPart("video") MultipartFile audio) {
+            return ResponseEntity.ok(resourceService.uploadVideo(audio));
     }
 
 }

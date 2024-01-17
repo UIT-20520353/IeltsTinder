@@ -19,12 +19,11 @@ public class UserMapper {
           user.getAddress(),
           user.getGender() == 1 ? "Male" : "Female",
           user.getAge(),
-          user.getOverall(),
-          user.getTarget(),
           user.getDescription(),
           user.getAvatar(),
           user.getStatus(),
-          user.getRole()
+          user.getRole(),
+          user.getLevel()
         );
     }
 
@@ -37,11 +36,10 @@ public class UserMapper {
                 user.getAddress(),
                 user.getGender() == 1 ? "Male" : "Female",
                 user.getAge(),
-                user.getOverall(),
-                user.getTarget(),
                 user.getDescription(),
                 user.getAvatar(),
-                user.getVideoSdkToken()
+                user.getVideoSdkToken(),
+                user.getLevel()
         );
     }
 
@@ -55,12 +53,11 @@ public class UserMapper {
                 user.getAddress(),
                 user.getGender() == 1 ? "Male" : "Female",
                 user.getAge(),
-                user.getOverall(),
-                user.getTarget(),
                 user.getDescription(),
                 user.getAvatar(),
                 user.getStatus(),
-                user.getRole()
+                user.getRole(),
+                user.getLevel()
         );
     }
 

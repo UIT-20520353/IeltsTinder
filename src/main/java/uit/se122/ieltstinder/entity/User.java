@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import uit.se122.ieltstinder.entity.enumeration.Role;
+import uit.se122.ieltstinder.entity.enumeration.TestLevel;
 import uit.se122.ieltstinder.entity.enumeration.UserStatus;
 
 import java.util.List;
@@ -44,12 +45,6 @@ public class User {
     @Column(name = "age")
     private Integer age;
 
-    @Column(name = "overall")
-    private Double overall;
-
-    @Column(name = "target")
-    private Double target;
-
     @Column(name = "description")
     private String description;
 
@@ -71,6 +66,13 @@ public class User {
 
     @Column(name = "video_sdk_token")
     private String videoSdkToken;
+
+    @Column(name = "is_first_login")
+    private Boolean isFirstLogin;
+
+    @Column(name = "level")
+    @Enumerated(EnumType.STRING)
+    private TestLevel level;
 
     public void setNewSession(UserSession session) {
         session.setUser(this);

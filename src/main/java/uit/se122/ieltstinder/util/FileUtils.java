@@ -15,8 +15,10 @@ public final class FileUtils {
 
     private static final List<String> AUDIO_TYPES = List.of("mp3");
     private static final List<String> IMAGE_TYPES = List.of("png","jpg","jpeg");
+    private static final List<String> VIDEO_TYPES = List.of("mp4","mov");
     private static final Long MAX_IMAGE_SIZE = 2L;
-    private static final Long MAX_AUDIO_SIZE = 10L;
+    private static final Long MAX_AUDIO_SIZE = 20L;
+    private static final Long MAX_VIDEO_SIZE = 30L;
 
     private FileUtils() {}
 
@@ -64,6 +66,21 @@ public final class FileUtils {
             }
             if(FileUtils.getSize(file.getSize()) > MAX_AUDIO_SIZE){
                 throw new BadRequestException(AUDIO_SIZE_INVALID_ERROR);
+            }
+            return file.getBytes();
+        } catch (IOException e){
+            throw new InternalException();
+        }
+    }
+
+    public static byte[] checkVideoFile(MultipartFile file) {
+        try {
+            String contentType = file.getContentType();
+            if(Objects.nonNull(contentType) && !VIDEO_TYPES.contains(FileUtils.getExtension(contentType))){
+                throw new BadRequestException(VIDEO_TYPE_INVALID_ERROR);
+            }
+            if(FileUtils.getSize(file.getSize()) > MAX_VIDEO_SIZE){
+                throw new BadRequestException(VIDEO_SIZE_INVALID_ERROR);
             }
             return file.getBytes();
         } catch (IOException e){

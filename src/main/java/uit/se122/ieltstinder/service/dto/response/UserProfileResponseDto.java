@@ -1,5 +1,7 @@
 package uit.se122.ieltstinder.service.dto.response;
 
+import uit.se122.ieltstinder.entity.enumeration.TestLevel;
+
 public record UserProfileResponseDto(
         Long id,
         String first_name,
@@ -8,10 +10,9 @@ public record UserProfileResponseDto(
         String address,
         String gender,
         Integer age,
-        Double overall,
-        Double target,
         String description,
         String avatar,
-        String token
+        String token,
+        TestLevel level
 ) {
 }

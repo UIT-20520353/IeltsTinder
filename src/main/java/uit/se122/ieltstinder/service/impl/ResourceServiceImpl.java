@@ -30,7 +30,13 @@ public class ResourceServiceImpl implements ResourceService {
         byte[] bytes = FileUtils.checkFile(image);
         String key = "audio" + "-" + UUID.randomUUID() + ".png";
 
-        String url = s3Service.uploadFile(key,"ieltstinder", bytes, List.of("image"), image.getContentType());
-        return url;
+        return s3Service.uploadFile(key,"ieltstinder", bytes, List.of("image"), image.getContentType());
+    }
+
+    @Override
+    public String uploadVideo(MultipartFile video) {
+        byte[] bytes = FileUtils.checkVideoFile(video);
+        String key = "video" + "-" + UUID.randomUUID() + ".mp4";
+        return s3Service.uploadFile(key, "ieltstinder", bytes, List.of("video"), video.getContentType());
     }
 }

@@ -52,6 +52,8 @@ public class MessageConstant {
     public static final String IMAGE_SIZE_INVALID_ERROR = "error.validate.file.image.invalid-size";
     public static final String AUDIO_TYPE_INVALID_ERROR = "error.validate.file.audio.invalid-file";
     public static final String AUDIO_SIZE_INVALID_ERROR = "error.validate.file.audio.invalid-size";
+    public static final String  VIDEO_TYPE_INVALID_ERROR = "error.validate.file.video.invalid-file";
+    public static final String VIDEO_SIZE_INVALID_ERROR = "error.validate.file.video.invalid-size";
 
     public static final String START_CALL_ERROR = "error.call.start";
 
