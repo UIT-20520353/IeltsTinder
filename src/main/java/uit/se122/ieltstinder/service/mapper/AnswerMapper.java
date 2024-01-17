@@ -12,7 +12,8 @@ public class AnswerMapper {
     public AnswerDto toAnswerDto(Answer answer) {
         return new AnswerDto(
                 answer.getId(),
-                answer.getContent()
+                answer.getContent(),
+                answer.getIsCorrect()
         );
     }
 
