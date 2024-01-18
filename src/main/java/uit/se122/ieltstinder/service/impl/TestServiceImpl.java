@@ -93,6 +93,14 @@ public class TestServiceImpl extends QueryService<Test> implements TestService {
         testRepository.delete(test);
     }
 
+    @Override
+    public TestDetailDto getEntryTest() {
+        Test test = testRepository
+                .findById(7L)
+                .orElseThrow(() -> new BadRequestException(TEST_NOT_EXIST));
+        return testMapper.toTestDetailDto(test);
+    }
+
     private Specification<Test> createSpecification(TestCriteria criteria) {
         Specification<Test> specification = Specification.where(null);
 

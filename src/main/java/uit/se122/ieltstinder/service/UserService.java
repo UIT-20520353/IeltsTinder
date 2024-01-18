@@ -6,6 +6,7 @@ import uit.se122.ieltstinder.service.criteria.UserCriteria;
 import uit.se122.ieltstinder.service.dto.UserAdminDto;
 import uit.se122.ieltstinder.service.dto.UserDto;
 import uit.se122.ieltstinder.service.dto.request.UpdateUserProfile;
+import uit.se122.ieltstinder.service.dto.response.AdminUserDetailResponse;
 import uit.se122.ieltstinder.service.dto.response.UserProfileResponseDto;
 
 public interface UserService {
@@ -18,4 +19,5 @@ public interface UserService {
     UserProfileResponseDto getProfile(Long userId);
     void updateAvatar(Long userId, MultipartFile image);
     void updateUserProfile(Long userId, UpdateUserProfile request);
+    AdminUserDetailResponse getAdminUserDetail(Long userId);
 }

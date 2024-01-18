@@ -15,6 +15,7 @@ import uit.se122.ieltstinder.service.ResourceService;
 import uit.se122.ieltstinder.service.UserService;
 import uit.se122.ieltstinder.service.criteria.UserCriteria;
 import uit.se122.ieltstinder.service.dto.UserAdminDto;
+import uit.se122.ieltstinder.service.dto.response.AdminUserDetailResponse;
 import uit.se122.ieltstinder.util.PaginationUtils;
 
 import java.util.List;
@@ -51,6 +52,11 @@ public class UserAdminController {
     @PostMapping(value = "/add", consumes = { "multipart/form-data" })
     public ResponseEntity<String> addSocialMedia(@RequestPart("video") MultipartFile audio) {
             return ResponseEntity.ok(resourceService.uploadVideo(audio));
+    }
+
+    @GetMapping(value = "/{userId}")
+    public ResponseEntity<AdminUserDetailResponse> getUserDetail(@PathVariable Long userId) {
+        return ResponseEntity.ok(userService.getAdminUserDetail(userId));
     }
 
 }

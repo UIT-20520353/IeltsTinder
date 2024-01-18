@@ -74,6 +74,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     private TestLevel level;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Post> posts;
+
     public void setNewSession(UserSession session) {
         session.setUser(this);
         this.sessions.clear();

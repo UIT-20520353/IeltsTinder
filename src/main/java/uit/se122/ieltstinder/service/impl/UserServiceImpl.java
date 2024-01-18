@@ -17,6 +17,7 @@ import uit.se122.ieltstinder.service.ResourceService;
 import uit.se122.ieltstinder.service.criteria.UserCriteria;
 import uit.se122.ieltstinder.service.dto.UserAdminDto;
 import uit.se122.ieltstinder.service.dto.request.UpdateUserProfile;
+import uit.se122.ieltstinder.service.dto.response.AdminUserDetailResponse;
 import uit.se122.ieltstinder.service.dto.response.UserProfileResponseDto;
 import uit.se122.ieltstinder.service.mapper.UserMapper;
 import uit.se122.ieltstinder.repository.UserRepository;
@@ -140,8 +141,14 @@ public class UserServiceImpl extends QueryService<User> implements UserService {
         user.setAddress(request.getAddress());
         user.setGender(request.getGender());
         user.setAge(request.getAge());
-        user.setOverall(request.getOverall());
-        user.setTarget(request.getTarget());
+    }
+
+    @Override
+    public AdminUserDetailResponse getAdminUserDetail(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new BadRequestException(USER_NOT_EXIST));
+
+        return userMapper.toAdminUserDetail(user);
     }
 
 }

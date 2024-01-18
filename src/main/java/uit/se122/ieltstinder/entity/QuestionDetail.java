@@ -32,5 +32,7 @@ public class QuestionDetail {
     @OneToMany(mappedBy = "questionDetail", fetch = FetchType.LAZY)
     private List<Answer> answers;
 
+    @Column(name = "point", nullable = true)
+    private Integer point;
 
 }

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import uit.se122.ieltstinder.entity.User;
 import uit.se122.ieltstinder.entity.UserSession;
 import uit.se122.ieltstinder.entity.enumeration.Role;
+import uit.se122.ieltstinder.entity.enumeration.TestLevel;
 import uit.se122.ieltstinder.entity.enumeration.UserStatus;
 import uit.se122.ieltstinder.exception.AuthenticationException;
 import uit.se122.ieltstinder.exception.BadRequestException;
@@ -84,12 +85,11 @@ public class AuthServiceImpl implements AuthService {
                 .age(request.getAge())
                 .gender(request.getGender())
                 .address(request.getAddress())
-                .overall(0.0)
-                .target(3.0)
                 .description("")
                 .avatar("https://upload.wikimedia.org/wikipedia/commons/a/af/Default_avatar_profile.jpg")
                 .role(Role.USER)
                 .status(UserStatus.ACTIVE)
+                .level(TestLevel.ENTRY_TEST)
                 .build()
         );
     }

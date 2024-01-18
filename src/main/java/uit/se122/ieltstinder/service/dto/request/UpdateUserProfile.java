@@ -9,6 +9,4 @@ public class UpdateUserProfile {
     private String address;
     private Integer gender;
     private Integer age;
-    private Double overall;
-    private Double target;
 }

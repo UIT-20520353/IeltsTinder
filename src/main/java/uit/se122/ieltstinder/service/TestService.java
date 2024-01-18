@@ -18,4 +18,5 @@ public interface TestService {
     void addReadingResource(Long testId, MultipartFile resource, String paragraph);
     void createTest(CreateTestDto request);
     void deleteTest(Long testId);
+    TestDetailDto getEntryTest();
 }

@@ -5,11 +5,14 @@ import org.springframework.stereotype.Component;
 import uit.se122.ieltstinder.entity.User;
 import uit.se122.ieltstinder.service.dto.UserAdminDto;
 import uit.se122.ieltstinder.service.dto.UserDto;
+import uit.se122.ieltstinder.service.dto.response.AdminUserDetailResponse;
 import uit.se122.ieltstinder.service.dto.response.UserProfileResponseDto;
 
 @Component
 @RequiredArgsConstructor
 public class UserMapper {
+
+    private final PostMapper postMapper;
 
     public UserDto toUserDto(User user) {
         return new UserDto(
@@ -58,6 +61,24 @@ public class UserMapper {
                 user.getStatus(),
                 user.getRole(),
                 user.getLevel()
+        );
+    }
+
+    public AdminUserDetailResponse toAdminUserDetail(User user) {
+        return new AdminUserDetailResponse(
+                "User " + user.getId(),
+                user.getId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail(),
+                user.getAddress(),
+                user.getGender() == 1 ? "Male" : "Female",
+                user.getAge(),
+                user.getDescription(),
+                user.getAvatar(),
+                user.getStatus(),
+                user.getLevel(),
+                user.getPosts().stream().map(postMapper::toPostDto).toList()
         );
     }
 

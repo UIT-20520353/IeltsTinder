@@ -5,8 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class SubmitTestRequest {
+public class EntryTestSubmitRequest {
     private Long testId;
-    private List<Long> answerId;
-    private Long time;
+    private List<Long> answerIds;
 }

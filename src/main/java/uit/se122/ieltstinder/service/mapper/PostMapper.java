@@ -9,14 +9,15 @@ import uit.se122.ieltstinder.service.dto.PostDto;
 @RequiredArgsConstructor
 public class PostMapper {
 
-    private final UserMapper userMapper;
-
     public PostDto toPostDto(Post post) {
         return new PostDto(
+                "Post " + post.getId(),
                 post.getId(),
-                userMapper.toUserDto(post.getUser()),
-                post.getContent(),
-                post.getVideoUrl()
+                post.getName(),
+                post.getUrl(),
+                post.getCreatedDate(),
+                post.getStatus(),
+                post.getDuration()
         );
     }
 
