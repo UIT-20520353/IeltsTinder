@@ -57,4 +57,6 @@ public class MessageConstant {
 
     public static final String START_CALL_ERROR = "error.call.start";
 
+    public static final String TEST_ID_REQUIRED_ERROR = "error.validate.test-id.required";
+
 }
