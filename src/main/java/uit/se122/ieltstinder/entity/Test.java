@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import uit.se122.ieltstinder.entity.enumeration.TestLevel;
 
+import java.time.Instant;
 import java.util.List;
 
 @Entity
@@ -30,5 +31,8 @@ public class Test {
 
     @OneToMany(mappedBy = "test", fetch = FetchType.LAZY)
     private List<Question> questions;
+
+    @Column(name = "created_at")
+    private Instant createdAt;
 
 }

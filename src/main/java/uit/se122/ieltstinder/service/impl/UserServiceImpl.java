@@ -46,9 +46,12 @@ public class UserServiceImpl extends QueryService<User> implements UserService {
     private Specification<User> createSpecification(UserCriteria criteria) {
         Specification<User> specification = Specification.where(null);
         if (criteria != null) {
+            if (Objects.nonNull(criteria.getId())) {
+                specification = specification.and(buildSpecification(criteria.getId(), User_.id));
+            }
+
             if (Objects.nonNull(criteria.getEmail())) {
-                specification = specification.and(buildSpecification(criteria.getEmail(),
-                        root -> root.get(User_.email)));
+                specification = specification.and(buildSpecification(criteria.getEmail(), User_.email));
             }
 
             if (Objects.nonNull(criteria.getName())) {
@@ -65,6 +68,10 @@ public class UserServiceImpl extends QueryService<User> implements UserService {
 
             if (Objects.nonNull(criteria.getStatus())) {
                 specification = specification.and(buildSpecification(criteria.getStatus(), User_.status));
+            }
+
+            if (Objects.nonNull(criteria.getLevel())) {
+                specification = specification.and(buildSpecification(criteria.getLevel(), User_.level));
             }
         }
 

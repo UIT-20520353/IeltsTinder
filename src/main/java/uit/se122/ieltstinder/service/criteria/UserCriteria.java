@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import uit.se122.ieltstinder.entity.enumeration.Role;
+import uit.se122.ieltstinder.entity.enumeration.TestLevel;
 import uit.se122.ieltstinder.entity.enumeration.UserStatus;
 import uit.se122.ieltstinder.service.query.Criteria;
 import uit.se122.ieltstinder.service.query.filter.Filter;
@@ -18,16 +19,20 @@ import java.util.Objects;
 @AllArgsConstructor
 public class UserCriteria implements Serializable, Criteria {
 
+    private LongFilter id;
     private StringFilter name;
     private StringFilter email;
     private UserRoleFilter role;
-    private  UserStatusFilter status;
+    private UserStatusFilter status;
+    private TestLevelFilter level;
 
     public UserCriteria(UserCriteria other) {
         this.email = Objects.nonNull(other.email) ? other.email : null;
         this.name = Objects.nonNull(other.name) ? other.name : null;
         this.role = Objects.nonNull(other.role) ? other.role : null;
         this.status = Objects.nonNull(other.status) ? other.status : null;
+        this.id = Objects.nonNull(other.id) ? other.id : null;
+        this.level = Objects.nonNull(other.level) ? other.level : null;
     }
 
     @Override
@@ -64,6 +69,22 @@ public class UserCriteria implements Serializable, Criteria {
         @Override
         public Filter<UserStatus> copy() {
             return new UserStatusFilter(this);
+        }
+    }
+
+    public static class TestLevelFilter extends Filter<TestLevel> implements Serializable {
+        private static final long serialVersionUID = 1L;
+
+        public TestLevelFilter() {
+        }
+
+        public TestLevelFilter(TestLevelFilter other) {
+            super(other);
+        }
+
+        @Override
+        public Filter<TestLevel> copy() {
+            return new TestLevelFilter(this);
         }
     }
 

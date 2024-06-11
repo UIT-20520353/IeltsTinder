@@ -21,6 +21,7 @@ import uit.se122.ieltstinder.service.dto.request.TestRequest;
 import uit.se122.ieltstinder.service.mapper.TestMapper;
 import uit.se122.ieltstinder.service.query.QueryService;
 
+import java.time.Instant;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -82,6 +83,7 @@ public class TestServiceImpl extends QueryService<Test> implements TestService {
         testRepository.save(Test.builder()
                 .title(request.getName())
                 .difficultyLevel(request.getLevel())
+                .createdAt(Instant.now())
                 .build());
     }
 
@@ -96,7 +98,7 @@ public class TestServiceImpl extends QueryService<Test> implements TestService {
     @Override
     public TestDetailDto getEntryTest() {
         Test test = testRepository
-                .findById(7L)
+                .findById(1L)
                 .orElseThrow(() -> new BadRequestException(TEST_NOT_EXIST));
         return testMapper.toTestDetailDto(test);
     }

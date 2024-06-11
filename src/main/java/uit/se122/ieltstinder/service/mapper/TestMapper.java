@@ -17,7 +17,8 @@ public class TestMapper {
                 "Test " + test.getId(),
                 test.getId(),
                 test.getTitle(),
-                test.getDifficultyLevel()
+                test.getDifficultyLevel(),
+                test.getCreatedAt()
         );
     }
 
@@ -26,6 +27,7 @@ public class TestMapper {
                 test.getId(),
                 test.getTitle(),
                 test.getDifficultyLevel(),
+                test.getCreatedAt(),
                 test.getQuestions().stream().map(questionMapper::toQuestionDto).toList()
         );
     }
