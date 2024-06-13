@@ -129,6 +129,7 @@ public class QuestionServiceImpl  extends QueryService<Question> implements Ques
     }
 
     @Override
+    @Transactional
     public void createQuestion(CreateQuestionDto request) {
         Test test = testService.getTestEntityById(request.getTestId());
         Question question = questionRepository.save(createQuestionByType(request, test));
