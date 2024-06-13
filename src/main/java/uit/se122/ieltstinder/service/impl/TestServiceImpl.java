@@ -103,6 +103,13 @@ public class TestServiceImpl extends QueryService<Test> implements TestService {
         return testMapper.toTestDetailDto(test);
     }
 
+    @Override
+    public Test getTestEntityById(Long testId) {
+        return testRepository
+                .findById(testId)
+                .orElseThrow(() -> new BadRequestException(TEST_NOT_EXIST));
+    }
+
     private Specification<Test> createSpecification(TestCriteria criteria) {
         Specification<Test> specification = Specification.where(null);
 

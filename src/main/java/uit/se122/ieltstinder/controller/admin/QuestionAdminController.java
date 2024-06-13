@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import uit.se122.ieltstinder.entity.enumeration.PartType;
 import uit.se122.ieltstinder.service.QuestionService;
-import uit.se122.ieltstinder.service.dto.request.AnswerRequestDto;
-import uit.se122.ieltstinder.service.dto.request.AnswerRequestUpdateDto;
-import uit.se122.ieltstinder.service.dto.request.QuestionReadingRequestDto;
-import uit.se122.ieltstinder.service.dto.request.QuestionRequestUpdateDto;
+import uit.se122.ieltstinder.service.dto.request.*;
 
 import java.util.List;
 
@@ -48,9 +45,9 @@ public class QuestionAdminController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping
-    public ResponseEntity<Void> addQuestionReading(@Valid @RequestBody QuestionReadingRequestDto request) {
-        questionService.addQuestionReading(request);
+    @PostMapping(consumes = { "multipart/form-data" })
+    public ResponseEntity<Void> createQuestion(@Valid @ModelAttribute CreateQuestionDto request) {
+        questionService.createQuestion(request);
         return ResponseEntity.noContent().build();
     }
 

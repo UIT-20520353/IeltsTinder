@@ -87,4 +87,11 @@ public final class FileUtils {
             throw new InternalException();
         }
     }
+
+    public static void checkMultipartFileNull(MultipartFile file, String message) {
+        if (file.isEmpty()) {
+            throw new BadRequestException(message);
+        }
+    }
+
 }

@@ -57,6 +57,14 @@ public class MessageConstant {
 
     public static final String START_CALL_ERROR = "error.call.start";
 
+    public static final String ANSWER_LIST_REQUIRED_ERROR = "error.validate.answer-list.required";
+    public static final String ANSWER_CORRECT_REQUIRED_ERROR = "error.validate.answer-correct.required";
+    public static final String ANSWER_CONTENT_REQUIRED_ERROR = "error.validate.answer-content.required";
+    public static final String QUESTION_CONTENT_REQUIRED_ERROR = "error.validate.question-content.required";
     public static final String TEST_ID_REQUIRED_ERROR = "error.validate.test-id.required";
+    public static final String QUESTION_TYPE_REQUIRED_ERROR = "error.validate.question-type.required";
+    public static final String LIST_QUESTION_DETAILS_REQUIRED_ERROR = "error.validate.question-detail-list.required";
+    public static final String PARAGRAPH_REQUIRED_ERROR = "error.validate.paragraph.required";
+    public static final String AUDIO_REQUIRED_ERROR = "error.validate.audio.required";
 
 }

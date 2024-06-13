@@ -1,25 +1,25 @@
 package uit.se122.ieltstinder.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import uit.se122.ieltstinder.entity.Answer;
 import uit.se122.ieltstinder.entity.Question;
+import uit.se122.ieltstinder.entity.QuestionDetail;
 import uit.se122.ieltstinder.entity.Test;
 import uit.se122.ieltstinder.entity.enumeration.PartType;
+import uit.se122.ieltstinder.entity.enumeration.QuestionType;
 import uit.se122.ieltstinder.exception.BadRequestException;
 import uit.se122.ieltstinder.repository.AnswerRepository;
 import uit.se122.ieltstinder.repository.QuestionRepository;
-import uit.se122.ieltstinder.repository.TestRepository;
+import uit.se122.ieltstinder.repository.QuestionDetailRepository;
 import uit.se122.ieltstinder.service.QuestionService;
 import uit.se122.ieltstinder.service.ResourceService;
-import uit.se122.ieltstinder.service.dto.request.AnswerRequestDto;
-import uit.se122.ieltstinder.service.dto.request.AnswerRequestUpdateDto;
-import uit.se122.ieltstinder.service.dto.request.QuestionReadingRequestDto;
-import uit.se122.ieltstinder.service.dto.request.QuestionRequestUpdateDto;
+import uit.se122.ieltstinder.service.TestService;
+import uit.se122.ieltstinder.service.dto.request.*;
 import uit.se122.ieltstinder.service.query.QueryService;
+import uit.se122.ieltstinder.util.FileUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -31,8 +31,9 @@ import static uit.se122.ieltstinder.constant.MessageConstant.*;
 public class QuestionServiceImpl  extends QueryService<Question> implements QuestionService {
 
     private final QuestionRepository questionRepository;
-    private final TestRepository testRepository;
+    private final TestService testService;
     private final ResourceService resourceService;
+    private final QuestionDetailRepository questionDetailRepository;
     private final AnswerRepository answerRepository;
 
     @Override
@@ -125,6 +126,61 @@ public class QuestionServiceImpl  extends QueryService<Question> implements Ques
 //                    .question(question)
 //                    .build());
 //        });
+    }
+
+    @Override
+    public void createQuestion(CreateQuestionDto request) {
+        Test test = testService.getTestEntityById(request.getTestId());
+        Question question = questionRepository.save(createQuestionByType(request, test));
+        request.getQuestionDetails().forEach(detail -> {
+            QuestionDetail questionDetail = questionDetailRepository.save(createQuestionDetail(detail, question));
+            detail.getAnswers().forEach(answer -> {
+                answerRepository.save(Answer.builder()
+                                            .questionDetail(questionDetail)
+                                            .content(answer.getContent())
+                                            .isCorrect(answer.isCorrect())
+                                            .build());
+            });
+        });
+    }
+
+    private QuestionDetail createQuestionDetail(CreateQuestionDetailDto request, Question question) {
+        return QuestionDetail.builder()
+                             .question(question)
+                             .text(request.getContent())
+                             .explain(request.getExplain())
+                             .point(request.getPoint())
+                             .build();
+    }
+
+    private Question createQuestionByType(CreateQuestionDto request, Test test) {
+        String audioUrl = null;
+        String paragraph = null;
+
+        switch (request.getQuestionType()) {
+            case SINGLE_LISTENING:
+            case MULTIPLE_LISTENING:
+                FileUtils.checkMultipartFileNull(request.getAudio(), AUDIO_REQUIRED_ERROR);
+                audioUrl = resourceService.uploadAudio(request.getAudio());
+                break;
+            case PARAGRAPH_READING: {
+                if (request.getParagraph() == null || request.getParagraph().isBlank()) {
+                    throw new BadRequestException(PARAGRAPH_REQUIRED_ERROR);
+                }
+                paragraph = request.getParagraph();
+                break;
+            }
+            default:
+                break;
+        }
+
+        return Question.builder()
+                       .audioUrl(audioUrl)
+                       .paragraph(paragraph)
+                       .test(test)
+                       .type(request.getQuestionType())
+                       .description(request.getDescription())
+                       .build();
     }
 
 }
