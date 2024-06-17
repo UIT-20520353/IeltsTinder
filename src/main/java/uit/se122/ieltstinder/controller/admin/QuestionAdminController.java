@@ -21,16 +21,6 @@ public class QuestionAdminController {
 
     private final QuestionService questionService;
 
-    @PostMapping(value = "/add", consumes = { "multipart/form-data" })
-    public ResponseEntity<Void> addQuestion(@Valid @RequestPart("answers") List<AnswerRequestDto> answers,
-                                            @RequestPart("resource") MultipartFile resource,
-                                            @RequestPart("question") String question,
-                                            @RequestPart("type") PartType type,
-                                            @RequestPart("testId") Long testId) {
-        questionService.addQuestion(testId, question, type, resource, answers);
-        return ResponseEntity.noContent().build();
-    }
-
     @DeleteMapping(value = "{questionId}")
     public ResponseEntity<Void> deleteQuestion(@PathVariable Long questionId) {
         questionService.deleteQuestion(questionId);

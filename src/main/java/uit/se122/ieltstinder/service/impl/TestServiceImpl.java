@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import uit.se122.ieltstinder.entity.Test;
 import uit.se122.ieltstinder.entity.Test_;
+import uit.se122.ieltstinder.entity.builder.TestBuilder;
 import uit.se122.ieltstinder.exception.BadRequestException;
 import uit.se122.ieltstinder.repository.TestRepository;
 import uit.se122.ieltstinder.service.ResourceService;
@@ -80,11 +81,14 @@ public class TestServiceImpl extends QueryService<Test> implements TestService {
     @Override
     @Transactional
     public void createTest(CreateTestDto request) {
-        testRepository.save(Test.builder()
-                .title(request.getName())
-                .difficultyLevel(request.getLevel())
-                .createdAt(Instant.now())
-                .build());
+        testRepository.save(
+                TestBuilder
+                    .builder()
+                    .title(request.getName())
+                    .difficultyLevel(request.getLevel())
+                    .createdAt(Instant.now())
+                    .build()
+        );
     }
 
     @Override

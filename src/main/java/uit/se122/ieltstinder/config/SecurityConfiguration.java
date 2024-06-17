@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.firewall.HttpStatusRequestRejectedHandler;
@@ -18,7 +19,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CorsFilter;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 import uit.se122.ieltstinder.filter.AuthenticationFilter;
-import uit.se122.ieltstinder.interfaces.impl.BCryptPasswordEncoderAdapter;
 import uit.se122.ieltstinder.security.jwt.JwtProvider;
 import uit.se122.ieltstinder.service.UserService;
 import uit.se122.ieltstinder.service.UserSessionService;
@@ -78,8 +78,8 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public BCryptPasswordEncoderAdapter cryptPasswordEncoder() {
-        return new BCryptPasswordEncoderAdapter();
+    public BCryptPasswordEncoder cryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean

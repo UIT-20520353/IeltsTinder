@@ -5,10 +5,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import uit.se122.ieltstinder.entity.User;
 import uit.se122.ieltstinder.entity.enumeration.Role;
+import uit.se122.ieltstinder.interfaces.AuthServiceAdapter;
+import uit.se122.ieltstinder.interfaces.impl.BCryptAuthServiceAdapter;
 import uit.se122.ieltstinder.security.SecurityUtils;
-import uit.se122.ieltstinder.service.AuthService;
 import uit.se122.ieltstinder.service.UserService;
 import uit.se122.ieltstinder.service.dto.request.AuthLoginRequestDto;
 import uit.se122.ieltstinder.service.dto.request.AuthRegisterRequestDto;
@@ -21,7 +21,7 @@ import uit.se122.ieltstinder.service.dto.response.UserProfileResponseDto;
 @RequestMapping(value = "/api")
 public class AuthController {
 
-    private final AuthService authService;
+    private final BCryptAuthServiceAdapter authService;
     private final UserService userService;
 
     @PostMapping(value = "/login")
